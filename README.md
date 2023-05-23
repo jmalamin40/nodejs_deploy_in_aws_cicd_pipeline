@@ -30,34 +30,34 @@
  * [create a node.js.yml file in this directory (.github/workflows/node.js.yml)]
 
  * [import this code]
-    ```
-        name: Node.js CI
+        ```
+            name: Node.js CI
 
-        on:
-        push:
-            branches: [ "main" ] 
+            on:
+            push:
+                branches: [ "main" ] 
 
-        jobs:
-        build:
+            jobs:
+            build:
 
-            runs-on: self-hosted
+                runs-on: self-hosted
 
-            strategy:
-            matrix:
-                node-version: [12.x]
-                
+                strategy:
+                matrix:
+                    node-version: [12.x]
+                    
 
-            steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-            uses: actions/setup-node@v3
-            with:
-                node-version: ${{ matrix.node-version }}
-                cache: 'npm'
-            - run: npm ci
-            - run: npm run build --if-present
-            - run: pm2 restart index.js
-    ```
+                steps:
+                - uses: actions/checkout@v3
+                - name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v3
+                with:
+                    node-version: ${{ matrix.node-version }}
+                    cache: 'npm'
+                - run: npm ci
+                - run: npm run build --if-present
+                - run: pm2 restart index.js
+        ```
 
 ### Step 07:
     * [ go to your github repository and go to Settings
