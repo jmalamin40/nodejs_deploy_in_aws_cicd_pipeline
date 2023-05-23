@@ -1,99 +1,114 @@
-# [CI/CD Pipeline Using GitHub Action Deploy Nodejs Project on AWS EC2 (ubuntu) step by step](https://github.com/jmalamin40/nodejs_deploy_in_aws_cicd_pipeline)
+# CI/CD Pipeline Using GitHub Actions: Deploy Node.js Project on AWS EC2 (Ubuntu)
 
-*Now we can deploy nodejs project in aws EC2*
-## Documention
-### Step 01
-* create a node js project in the local machine
-* confirm your project that is perfectly working on the local machine 
-### Step 02
-* [login AWS console](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin)  
-* create a new IAM user role/if exist then ok. when you generate a new key for the pair must be downloaded and stored in your local machine 
+This repository provides a step-by-step guide on how to set up a CI/CD pipeline using GitHub Actions to deploy a Node.js project on AWS EC2. The pipeline automates the deployment process, allowing you to easily deploy your Node.js application on an AWS EC2 instance. Follow the instructions below to get started.
 
-* select the region when you want to create a server 
-* go to EC2 instance  
-* create a new security group/if exist then ok. ensure your inbound specific port is allowed for public traffic where you want to run your nodejs project 
-* create key pair for connecting to remote ssh /if exist then ok 
-* as per your requirement create your server 
+## Documentation
 
-### Step 03
-* now you need to connect your server via ssh key 
-(you can use PuTTYgen or anything)  
+### Step 01: Create and Test Your Node.js Project Locally
 
-### Step 04:
-* now go to GitHub and create a new repository for your nodejs project/if exist then ok 
+1. Create a new Node.js project on your local machine.
+2. Confirm that your project is working perfectly on your local machine.
 
-### Step 05
-* Now push your nodejs project in this repository 
+### Step 02: Prepare AWS Environment
 
-### Step 06
- * create workflow in your project  
- * create a node.js.yml file in this directory (.github/workflows/node.js.yml) 
+1. [Login to the AWS console](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin).
+2. Create a new IAM user role. If the role already exists, you can use that.
+3. Generate a new key pair and download it to your local machine.
+4. Select the region where you want to create your server.
+5. Go to the EC2 instance section.
+6. Create a new security group. If a security group already exists, you can use that.
+   - Ensure that the inbound specific port required for your Node.js project is allowed for public traffic.
+7. Create a key pair for connecting to the server via SSH. If a key pair already exists, you can use that.
+8. Create your server based on your requirements.
 
- * import this code 
+### Step 03: Connect to Your Server via SSH Key
 
-        ```name: Node.js CI
+1. Connect to your server using an SSH key. You can use tools like PuTTYgen or any other SSH client.
 
-            on:
-            push:
-                branches: [ "main" ] 
+### Step 04: Create a GitHub Repository
 
-            jobs:
-            build:
+1. Go to GitHub and create a new repository for your Node.js project. If the repository already exists, you can use that.
 
-                runs-on: self-hosted
+### Step 05: Push Your Node.js Project to the Repository
 
-                strategy:
-                matrix:
-                    node-version: [12.x]
-                    
+1. Push your Node.js project to the newly created repository.
 
-                steps:
-                - uses: actions/checkout@v3
-                - name: Use Node.js ${{ matrix.node-version }}
-                uses: actions/setup-node@v3
-                with:
-                    node-version: ${{ matrix.node-version }}
-                    cache: 'npm'
-                - run: npm ci
-                - run: npm run build --if-present
-                - run: pm2 restart index.js
-        ```
+### Step 06: Create Workflow for CI/CD
 
-### Step 07:
-    *  go to your github repository and go to Settings
- after that open Actions tab from left side navigation  and click the Runners menu. Then click new self-hosted runner.
-    * select your OS Linux then scroll down 
+1. Create a workflow for your project.
+2. In the repository, create a file named `.github/workflows/node.js.yml` and import the following code:
 
-    * open your server via ssh connection and follow them 
-    * Create a folder for this project 
-        #  $ mkdir actions-runner && cd actions-runner 
-    
-    *  Download the latest runner package 
-        *  $ curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz 
-    
-    
-    *  Extract the installer 
-        *  $ tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz 
-    
-    *  Create the runner and start the configuration experience 
-        *  $ ./config.sh --url https://github.com/jmalamin40/nodejs_deploy_in_aws_cicd_pipeline --token copy from github 
-    
-    * install this bash 
-        * $  sudo ./svc.sh install 
+```yaml
+name: Node.js CI
 
-    * start 
-        * $  sudo ./svc.sh start 
-    
-    * install nodejs and database as per your project requirement 
+on:
+  push:
+    branches: [main]
 
+jobs:
+  build:
+    runs-on: self-hosted
 
-    * Use this YAML in your workflow file for each job 
-        * runs-on: self-hosted 
+    strategy:
+      matrix:
+        node-version: [12.x]
 
-    * now push your targeted branch  
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: pm2 restart index.js
+```
 
-    * ensure your project port is allow for public traffic in aws security  group 
+### Step 07: Set Up Self-Hosted Runner and Configure AWS
 
-### Step 08
-    * check your github action  log 
+1. Go to your GitHub repository and navigate to Settings.
+2. Open the Actions tab from the left side navigation and click on the Runners menu. Then click on "New self-hosted runner."
+3. Select Linux as the operating system and scroll down.
+4. Open your server via SSH connection and follow these steps:
+   - Create a folder for this project:
+     ```bash
+     $ mkdir actions-runner && cd actions-runner
+     ```
+   - Download the latest runner package:
+     ```bash
+     $ curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz
+     ```
+   - Extract the installer:
+     ```bash
+     $ tar xzf ./
 
+actions-runner-linux-x64-2.304.0.tar.gz
+     ```
+   - Create the runner and start the configuration experience:
+     ```bash
+     $ ./config.sh --url https://github.com/jmalamin40/nodejs_deploy_in_aws_cicd_pipeline --token <copy_token_from_github>
+     ```
+   - Install the runner as a service:
+     ```bash
+     $ sudo ./svc.sh install
+     ```
+   - Start the runner:
+     ```bash
+     $ sudo ./svc.sh start
+     ```
+   - Install Node.js and any required database as per your project's requirements.
+
+5. Use the following YAML in your workflow file for each job:
+   ```yaml
+   runs-on: self-hosted
+   ```
+
+6. Push your targeted branch to trigger the CI/CD pipeline.
+7. Ensure that the port used by your project is allowed for public traffic in the AWS security group.
+
+### Step 08: Check GitHub Actions Logs
+
+1. Check the GitHub Actions log to monitor the progress and status of your CI/CD pipeline.
+
+That's it! You have now set up a CI/CD pipeline using GitHub Actions to deploy your Node.js project on AWS EC2.
