@@ -6,7 +6,7 @@
 * create a node js project in the local machine
 * confirm your project that is perfectly working on the local machine 
 ### Step 02
-* login AWS console  
+* [login AWS console](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin)  
 * create a new IAM user role/if exist then ok. when you generate a new key for the pair must be downloaded and stored in your local machine 
 
 * select the region when you want to create a server 
