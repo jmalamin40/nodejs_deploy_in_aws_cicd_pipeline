@@ -30,8 +30,8 @@
  * create a node.js.yml file in this directory (.github/workflows/node.js.yml) 
 
  * import this code 
-        ```
-            name: Node.js CI
+
+        ```name: Node.js CI
 
             on:
             push:
