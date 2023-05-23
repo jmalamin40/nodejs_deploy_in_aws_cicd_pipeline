@@ -64,9 +64,9 @@
  after that open Actions tab from left side navigation  and click the Runners menu. Then click new self-hosted runner.
     * select your OS Linux then scroll down 
 
-     *  open your server via ssh connection and follow them 
-    *  Create a folder for this project 
-        *  $ mkdir actions-runner && cd actions-runner 
+    * open your server via ssh connection and follow them 
+    * Create a folder for this project 
+        #  $ mkdir actions-runner && cd actions-runner 
     
     *  Download the latest runner package 
         *  $ curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz 
