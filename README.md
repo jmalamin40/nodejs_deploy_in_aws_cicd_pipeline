@@ -111,4 +111,3 @@ actions-runner-linux-x64-2.304.0.tar.gz
 
 1. Check the GitHub Actions log to monitor the progress and status of your CI/CD pipeline.
 
-That's it! You have now set up a CI/CD pipeline using GitHub Actions to deploy your Node.js project on AWS EC2.
