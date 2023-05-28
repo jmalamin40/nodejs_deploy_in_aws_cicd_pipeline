@@ -108,6 +108,5 @@ actions-runner-linux-x64-2.304.0.tar.gz
 7. Ensure that the port used by your project is allowed for public traffic in the AWS security group.
 
 ### Step 08: Check GitHub Actions Logs
-
 1. Check the GitHub Actions log to monitor the progress and status of your CI/CD pipeline.
 
